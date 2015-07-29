@@ -44,7 +44,7 @@ def meow():
     if cat < 0 or cat > 100:
         return jsonify(error='Cat must be between 1 and 100')
     
-    // do something with cat
+    # do something with cat
 ```
 
 This mix of business logic and data validation is verbose, unweildy and hard to test.
@@ -69,7 +69,7 @@ def meow():
     if not inputs.validate():
         return jsonify(errors=inputs.errors)
 
-    // safely use request.args.get('cat')
+    # safely use request.args.get('cat')
 ```
 
 ### Error message responses
