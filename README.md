@@ -2,11 +2,11 @@
 
 The Flask-Inputs project has three goals:
 
- - Incoming request data validation
+ - Validate incoming request data
  - Seperate inputs and business logic
- - Error message responses
+ - Better error messages
 
-### Incoming request data validation
+### Validate incoming request data
 
 No matter how complete Flask test coverage is, publicly facing routes are exposed to a number of external inputs that accept semi-arbitrary data, like these:
 
@@ -72,9 +72,9 @@ def meow():
     # safely use request.args.get('cat')
 ```
 
-### Error message responses
+### Better error messages
 
-Both APIs and web app users benefit from better error responses. It's easy to do this with Flask-Inputs:
+Both APIs and web app users benefit from better error messages. It's easy to do this with Flask-Inputs since the input errors all surface in the same place:
 
 ```python
 if not inputs.validate():
