@@ -16,6 +16,7 @@ No matter how complete Flask test coverage is, publicly facing routes are expose
  - Form data and query string combined ([flask.Request.values](http://flask.pocoo.org/docs/0.10/api/#flask.Request.values))
  - Cookies ([flask.Request.cookies](http://flask.pocoo.org/docs/0.10/api/#flask.Request.cookies))
  - Headers ([flask.Request.headers](http://flask.pocoo.org/docs/0.10/api/#flask.Request.headers))
+ - JSON ([flask.Request.json](http://flask.pocoo.org/docs/0.10/api/#flask.Request.json))
 
 Validating this data before using it is tricky. WTForms handles validation for one of these inputs (Form data) really well, wouldn't it be nice to have that for the other inputs?
 
