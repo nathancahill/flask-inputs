@@ -80,4 +80,3 @@ class Inputs(object):
                 self.errors += chain(*form.errors.values())
 
         return success
-f
