@@ -53,6 +53,7 @@ Instead, using Flask-Inputs, the data schema can be declared in one place and va
 
 ```python
 from flask.ext.inputs import Inputs
+from wtforms.validators import DataRequired, NumberRange
 
 class CatInputs(Inputs):
     args = {
