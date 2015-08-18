@@ -10,6 +10,8 @@ from wtforms.validators import StopValidation
 
 
 class Inputs(object):
+    valid_attributes = ['args', 'form', 'values', 'cookies', 'headers', 'json', 'rule']
+
     def __init__(self, request):
         """
         :param request: The Flask request object to use for validation.
@@ -47,23 +49,11 @@ class Inputs(object):
 
         Returns a MultiDict for compatibility with wtforms form data.
         """
-        if attribute == 'rule':
-            return MultiDict(self._request.view_args)
+        if attribute in self.valid_attributes:
+            if attribute == 'rule':
+                return MultiDict(self._request.view_args)
 
-        elif attribute == 'args':
-            return self._request.args
-
-        elif attribute == 'form':
-            return self._request.form
-
-        elif attribute == 'values':
-            return self._request.values
-
-        elif attribute == 'cookies':
-            return MultiDict(self._request.cookies)
-
-        elif attribute == 'headers':
-            return MultiDict(self._request.headers)
+            return MultiDict(getattr(self._request, attribute))
 
 
     def validate(self):
