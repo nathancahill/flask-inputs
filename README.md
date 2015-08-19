@@ -1,5 +1,9 @@
 ## Flask-Inputs
 
+[![Build Status](https://travis-ci.org/nathancahill/flask-inputs.svg)](https://travis-ci.org/nathancahill/flask-inputs)
+[![Coverage Status](https://coveralls.io/repos/nathancahill/flask-inputs/badge.svg?branch=master&service=github)](https://coveralls.io/github/nathancahill/flask-inputs?branch=master)
+
+
 The Flask-Inputs project has three goals:
 
  - Validate incoming request data
