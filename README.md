@@ -7,10 +7,58 @@
 The Flask-Inputs project has three goals:
 
  - Validate incoming request data
- - Seperate inputs and business logic
+ - Separate inputs and business logic
  - Better error messages
 
-### Validate incoming request data
+### Installation
+
+To install Flask-Inputs, simply:
+
+```
+$ pip install flask-inputs
+```
+
+### Usage
+
+Flask-Inputs allows you to define a schema for a request to validate against. It looks like this:
+
+```
+from flask_inputs import Imputs
+from wtforms.validators import DataRequired
+
+class ApiInputs(Inputs):
+    args = {
+        'age': [DataRequired()]
+    }
+    headers = {
+        'Authorization': [valid_api_key]
+    }
+```
+
+A Inputs schema is defined by subclassing `flask_inputs.Inputs`, like WTForms are defined by subclassing `wtforms.form.Form`
+
+Each class variable is a type of input (data you would access through request properties like request.args). These properties are supported:
+
+```
+['args', 'form', 'values', 'cookies', 'headers', 'json', 'rule']
+```
+
+The variable values are dicts where keys are "fields" and values are that field's validators. To validate the request against the schema, create an instance of the class with the request, and then call `validate()`.
+
+```
+@app.route('/my-awesome-api')
+def api():
+    inputs = ApiInputs(request)
+
+    if not inputs.validate():
+        return jsonify(errors=inputs.errors)
+```
+
+If `validate()` returns `False`, error messages are listed in `inputs.errors`
+
+### Goals
+
+#### Validate incoming request data
 
 No matter how complete Flask test coverage is, publicly facing routes are exposed to a number of external inputs that accept semi-arbitrary data, like these:
 
@@ -26,8 +74,8 @@ Validating this data before using it is tricky. WTForms handles validation for o
 
 Flask-Inputs lets you define a WTForms style schema for all incoming request data. Once the request is validated against the schema, request data can be used safely.
 
-### Seperate inputs and business logic
- 
+#### Separate inputs and business logic
+
 When request data is accessed in a Flask route, it's generally followed by a couple lines for checking data validity.
 
 For example, here is my Cat API:
@@ -78,7 +126,7 @@ def meow():
     # safely use request.args.get('cat')
 ```
 
-### Better error messages
+#### Better error messages
 
 Both APIs and web app users benefit from better error messages. It's easy to do this with Flask-Inputs since the input errors all surface in the same place:
 
