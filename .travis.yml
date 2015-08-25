@@ -4,6 +4,7 @@ python:
 # command to install dependencies
 install:
   - pip install -r requirements.txt
+  - pip install jsonschema
   - pip install coveralls
 # command to run tests
 script: nosetests  --with-coverage --cover-package=flask_inputs

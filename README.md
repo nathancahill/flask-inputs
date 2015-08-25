@@ -56,6 +56,34 @@ def api():
 
 If `validate()` returns `False`, error messages are listed in `inputs.errors`
 
+Alternatively, to validate an entire input (as opposed to single fields like above), validators can be attached directly:
+
+```
+class ApiInputs(Inputs):
+    args = [CustomArgValidator()]
+```
+
+In this case, the raw input data is passed to the validators.
+
+### JSON Validation
+
+Flask-Inputs provides a validator for JSON data. This requires [jsonschema](https://pypi.python.org/pypi/jsonschema).
+
+```
+from flask_inputs.validators import JsonSchema
+
+schema = {
+    'type': 'object',
+    'properties': {
+        'name': {'type': 'string'}
+    }
+}
+
+class JsonInputs(Inputs):
+    json = [JsonSchema(schema=schema)]
+```
+
+
 ### Goals
 
 #### Validate incoming request data
