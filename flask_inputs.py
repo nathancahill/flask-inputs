@@ -1,16 +1,15 @@
 
-from collections import namedtuple
 from itertools import chain
 
 from werkzeug.datastructures import MultiDict
 
 from wtforms.form import BaseForm
 from wtforms.fields import Field
-from wtforms.validators import StopValidation
 
 
 class Inputs(object):
-    valid_attributes = ['args', 'form', 'values', 'cookies', 'headers', 'json', 'rule']
+    valid_attributes = ['args', 'form', 'values', 'cookies',
+                        'headers', 'json', 'rule']
 
     def __init__(self, request):
         """
@@ -20,8 +19,8 @@ class Inputs(object):
         each of the incoming request data attributes as class attributes:
 
         class TellInputs(Inputs):
-            rule = {'name': [Length(min=3, max=10, message='Name must be between %(min)d and %(max)d characters long.')]}
-            args = {'message': [DataRequired(message='The message argument is required.')]}
+            rule = {'name': [Length(min=3, max=10)]}
+            args = {'message': [DataRequired()]}
 
         Internally, each request attribute is a form, and each request
         attribute key is a field. The validators are attached to their fields.
@@ -42,7 +41,6 @@ class Inputs(object):
 
                     self._forms[name] = BaseForm(fields)
 
-
     def _get_values(self, attribute):
         """
         :param attribute: Request attribute to return values for.
@@ -54,7 +52,6 @@ class Inputs(object):
                 return MultiDict(self._request.view_args)
 
             return MultiDict(getattr(self._request, attribute))
-
 
     def validate(self):
         """
