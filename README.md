@@ -22,7 +22,7 @@ $ pip install flask-inputs
 
 Flask-Inputs allows you to define a schema for a request to validate against. It looks like this:
 
-```
+```python
 from flask_inputs import Imputs
 from wtforms.validators import DataRequired
 
@@ -39,13 +39,13 @@ A Inputs schema is defined by subclassing `flask_inputs.Inputs`, like WTForms ar
 
 Each class variable is a type of input (data you would access through request properties like request.args). These properties are supported:
 
-```
+```python
 ['args', 'form', 'values', 'cookies', 'headers', 'json', 'rule']
 ```
 
 The variable values are dicts where keys are "fields" and values are that field's validators. To validate the request against the schema, create an instance of the class with the request, and then call `validate()`.
 
-```
+```python
 @app.route('/my-awesome-api')
 def api():
     inputs = ApiInputs(request)
@@ -58,7 +58,7 @@ If `validate()` returns `False`, error messages are listed in `inputs.errors`
 
 Alternatively, to validate an entire input (as opposed to single fields like above), validators can be attached directly:
 
-```
+```python
 class ApiInputs(Inputs):
     args = [CustomArgValidator()]
 ```
@@ -69,7 +69,7 @@ In this case, the raw input data is passed to the validators.
 
 Flask-Inputs provides a validator for JSON data. This requires [jsonschema](https://pypi.python.org/pypi/jsonschema).
 
-```
+```python
 from flask_inputs.validators import JsonSchema
 
 schema = {
