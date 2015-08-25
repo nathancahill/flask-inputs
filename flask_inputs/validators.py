@@ -12,4 +12,7 @@ class JsonSchema(object):
         try:
             jsonschema.validate(field.data, self.schema)
         except jsonschema.ValidationError as e:
+            if self.message:
+                raise ValidationError(self.message)
+
             raise ValidationError(e.message)
