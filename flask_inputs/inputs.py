@@ -9,29 +9,24 @@ from wtforms.fields import Field
 
 
 class Inputs(object):
-    _valid_attributes = ['args', 'form', 'values', 'cookies',
-                         'headers', 'json', 'rule']
+    #: flask.Request attributes available for validation
+    valid_attrs = ['args', 'form', 'values', 'cookies',
+                   'headers', 'json', 'rule']
 
     def __init__(self, request):
+        """Base class for input validation. Subclass to add validators.
+
+        :param request: flask.Request object to validate.
         """
-        :param request: The Flask request object to use for validation.
 
-        To define request inputs, one makes a subclass of Inputs and defines
-        each of the incoming request data attributes as class attributes:
-
-        class TellInputs(Inputs):
-            rule = {'name': [Length(min=3, max=10)]}
-            args = {'message': [DataRequired()]}
-
-        Internally, each request attribute is a form, and each request
-        attribute key is a field. The validators are attached to their fields.
-        """
+        #: List of errors from all validators.
         self.errors = []
+
         self._request = request
         self._forms = dict()
 
         for name in dir(self):
-            if not name.startswith('_') and name not in ['errors', 'validate']:
+            if not name.startswith('_') and name not in ['errors', 'validate', 'valid_attrs']:
                 input = getattr(self, name)
                 fields = dict()
 
@@ -44,12 +39,15 @@ class Inputs(object):
                 self._forms[name] = BaseForm(fields)
 
     def _get_values(self, attribute, coerse=True):
-        """
-        :param attribute: Request attribute to return values for.
+        """Compatability function to return MultiDict objects with values from
+        a flask.Request object.
 
-        Returns a MultiDict for compatibility with wtforms form data.
+        :param attribute: Request attribute to return values for.
+        :param coerse: Return single input with raw data.
+
+        :returns: werkzeug.datastructures.MultiDict
         """
-        if attribute in self._valid_attributes:
+        if attribute in self.valid_attrs:
             if attribute == 'rule':
                 ret = self._request.view_args
             else:
@@ -61,8 +59,10 @@ class Inputs(object):
                 return MultiDict(dict(_input=ret))
 
     def validate(self):
-        """
-        Validate incoming request data. Returns True if all data is valid.
+        """Validate incoming request data. Returns True if all data is valid.
+        Adds each of the validator's error messages to Inputs.errors if not valid.
+
+        :returns: Boolean
         """
         success = True
 
