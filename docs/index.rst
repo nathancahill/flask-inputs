@@ -79,7 +79,7 @@ in the Authorization header::
 Advanced Usage
 --------------
 
-Inputs can be validated at any point in the request lifecylce. It can be
+Inputs can be validated at any point in the request lifecycle. It can be
 helpful to put validation in a @before_request function, either in
 with an app or blueprint object::
 
