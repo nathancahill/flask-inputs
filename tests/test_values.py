@@ -44,4 +44,5 @@ class ArgsTest(unittest.TestCase):
             inputs = ValuesInputs(request)
             inputs.validate()
 
-            self.assertEqual(inputs.errors, ['Name is required.', 'Email must be valid.'])
+            self.assertIn('Name is required.', inputs.errors)
+            self.assertIn('Email must be valid.', inputs.errors)
