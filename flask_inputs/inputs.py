@@ -1,12 +1,9 @@
+from itertools import chain
 
 import collections
-from itertools import chain
-from future.utils import iteritems
-
 from werkzeug.datastructures import MultiDict
-
-from wtforms.form import BaseForm
 from wtforms.fields import Field
+from wtforms.form import BaseForm
 
 
 class Inputs(object):
@@ -32,7 +29,7 @@ class Inputs(object):
                 fields = dict()
 
                 if isinstance(input, dict):
-                    for field, validators in iteritems(input):
+                    for field, validators in input.items():
                         fields[field] = Field(validators=validators)
                 elif isinstance(input, collections.Iterable):
                     fields['_input'] = Field(validators=input)
@@ -67,7 +64,7 @@ class Inputs(object):
         """
         success = True
 
-        for attribute, form in iteritems(self._forms):
+        for attribute, form in self._forms.items():
             if '_input' in form._fields:
                 form.process(self._get_values(attribute, coerse=False))
             else:
