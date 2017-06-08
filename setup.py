@@ -20,6 +20,6 @@ setup(
     license='MIT',
     keywords='flask validation wtforms',
     packages=['flask_inputs'],
-    install_requires=['flask', 'wtforms'],
+    install_requires=['flask', 'wtforms', 'future'],
     tests_require=['nose', 'coverage', 'jsonschema'],
 )
