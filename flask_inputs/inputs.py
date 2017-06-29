@@ -32,7 +32,7 @@ class Inputs(object):
                 fields = dict()
 
                 if isinstance(input, dict):
-                    for field, validators in iteritems(input):
+                    for field, validators in iter(input.items()):
                         fields[field] = Field(validators=validators)
                 elif isinstance(input, collections.Iterable):
                     fields['_input'] = Field(validators=input)
@@ -67,7 +67,7 @@ class Inputs(object):
         """
         success = True
 
-        for attribute, form in iteritems(self._forms):
+        for attribute, form in iter(self._forms.items()):
             if '_input' in form._fields:
                 form.process(self._get_values(attribute, coerse=False))
             else:
