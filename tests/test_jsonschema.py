@@ -46,11 +46,11 @@ class JsonSchemaTest(unittest.TestCase):
             inputs = JsonInputs(request)
             inputs.validate()
 
-            self.assertEqual(inputs.errors, ["100 is not of type 'string'"])
+            self.assertEqual(inputs.errors['_input'], "100 is not of type 'string'")
 
     def test_custom_error_messages(self):
         with app.test_request_context(method='POST', data=invalid_data, content_type='application/json'):
             inputs = JsonInputsMsg(request)
             inputs.validate()
 
-            self.assertEqual(inputs.errors, ['JSON data did not validate.'])
+            self.assertEqual(inputs.errors['_input'], 'JSON data did not validate.')

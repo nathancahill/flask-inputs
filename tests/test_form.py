@@ -38,4 +38,4 @@ class FormTest(unittest.TestCase):
             inputs = FormInputs(request)
             inputs.validate()
 
-            self.assertEqual(inputs.errors, ['Name is required.'])
+            self.assertEqual(inputs.errors['name'], 'Name is required.')

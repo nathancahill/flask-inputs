@@ -39,4 +39,4 @@ class HeadersTest(unittest.TestCase):
             inputs = HeadersInputs(request)
             inputs.validate()
 
-            self.assertEqual(inputs.errors, ['Invalid API key.'])
+            self.assertEqual(inputs.errors['Authorization'], 'Invalid API key.')

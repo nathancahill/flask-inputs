@@ -38,4 +38,4 @@ class JsonTest(unittest.TestCase):
             inputs = JsonInputs(request)
             inputs.validate()
 
-            self.assertEqual(inputs.errors, ['Name is required.'])
+            self.assertEqual(inputs.errors['name'], 'Name is required.')

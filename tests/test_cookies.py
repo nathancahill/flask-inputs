@@ -39,4 +39,4 @@ class CookiesTest(unittest.TestCase):
             inputs = CookiesInputs(request)
             inputs.validate()
 
-            self.assertEqual(inputs.errors, ['Name cookie missing.'])
+            self.assertEqual(inputs.errors['name'], 'Name cookie missing.')
