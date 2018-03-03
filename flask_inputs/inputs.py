@@ -76,7 +76,10 @@ class Inputs(object):
             if not form.validate():
                 success = False
                 self.field_keys = tuple(form._fields.keys())
-                self.field_error_msgs = tuple(chain(*form.errors.values()))
-                self.errors = dict(zip(self.field_keys, self.field_error_msgs))
+                self.error_dict = form.errors
+                # self.field_error_msgs = tuple(chain(*form.errors.values()))
+                #print(form.errors.items())
+                #self.errors = dict(zip(self.field_keys, self.field_error_msgs))
+                self.errors = form.errors
 
         return success

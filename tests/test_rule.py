@@ -39,4 +39,4 @@ class RuleTest(unittest.TestCase):
             inputs = RuleInputs(request)
             inputs.validate()
 
-            self.assertEqual(inputs.errors['color'], 'Not a valid color.')
+            self.assertIn('Not a valid color.', inputs.errors['color'])

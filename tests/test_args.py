@@ -21,7 +21,7 @@ class ArgsInputs(Inputs):
     }
 
 valid_data = 'name=Nathan Cahill&gender=male'
-invalid_data = 'name=&gender=both'
+invalid_data = '&'
 
 
 class ArgsTest(unittest.TestCase):
@@ -41,4 +41,5 @@ class ArgsTest(unittest.TestCase):
         with app.test_request_context(query_string=invalid_data):
             inputs = ArgsInputs(request)
             inputs.validate()
-            self.assertEqual(inputs.errors['name'], 'Name is required.')
+            print(inputs.errors)
+            self.assertIn('Name is required.', inputs.errors['name'])
