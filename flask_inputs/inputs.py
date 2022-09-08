@@ -1,5 +1,5 @@
 
-import collections
+from collections.abc import Iterable
 from itertools import chain
 from future.utils import iteritems
 
@@ -34,7 +34,7 @@ class Inputs(object):
                 if isinstance(input, dict):
                     for field, validators in iteritems(input):
                         fields[field] = Field(validators=validators)
-                elif isinstance(input, collections.Iterable):
+                elif isinstance(input, Iterable):
                     fields['_input'] = Field(validators=input)
 
                 self._forms[name] = BaseForm(fields)
